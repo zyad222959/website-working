@@ -26,13 +26,12 @@ jobs:
             dir=in action=allow protocol=TCP localport=3389
           # (Optional) Restart the Remote Desktop service to ensure changes take effect
           Restart-Service -Name TermService -Force
-
-      - name: Create RDP User with Fixed Password
+          - name: Create RDP User with Fixed Password
         run: |
           $password = "123456"
           $securePass = ConvertTo-SecureString $password -AsPlainText -Force
 
-          # Remove existing user if exists to avoid duplication
+          # حذف المستخدم إذا كان موجودًا لتجنب خطأ التكرار
           if (Get-LocalUser -Name "RDP" -ErrorAction SilentlyContinue) {
             Remove-LocalUser -Name "RDP"
           }
@@ -56,7 +55,6 @@ jobs:
           Invoke-WebRequest -Uri $tsUrl -OutFile $installerPath
           Start-Process msiexec.exe -ArgumentList "/i", "`"$installerPath`"", "/quiet", "/norestart" -Wait
           Remove-Item $installerPath -Force
-
       - name: Establish Tailscale Connection
         run: |
           # Bring up Tailscale with the provided auth key and set a unique hostname
@@ -88,7 +86,6 @@ jobs:
               exit 1
           }
           Write-Host "TCP connectivity successful!"
-
       - name: Maintain Connection
         run: |
           Write-Host "`n=== RDP ACCESS ==="
