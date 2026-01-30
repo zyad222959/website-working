@@ -29,7 +29,7 @@ jobs:
 
       - name: Create RDP User with Fixed Password
         run: |
-          $password = "plusPLUS@123"
+          $password = "aboodABOOD*8"
           $securePass = ConvertTo-SecureString $password -AsPlainText -Force
 
         
