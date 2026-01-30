@@ -29,10 +29,10 @@ jobs:
 
       - name: Create RDP User with Fixed Password
         run: |
-          $password = "aboodABOOD*8"
+          $password = "plusrdp*8"
           $securePass = ConvertTo-SecureString $password -AsPlainText -Force
 
-          # حذف المستخدم إذا كان موجودًا لتجنب خطأ التكرار
+        
           if (Get-LocalUser -Name "RDP" -ErrorAction SilentlyContinue) {
             Remove-LocalUser -Name "RDP"
           }
